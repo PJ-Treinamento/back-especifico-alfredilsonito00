@@ -1,34 +1,16 @@
 import prisma from '@shared/infra/prisma/client';
-import { Prisma, Users } from '@prisma/client';
+import { Prisma, Piu } from '@prisma/client';
+import IPiusRepository from '@modules/pius/repositories/IPiusRepository';
+import ICreatePiuDTO from '@modules/pius/dtos/ICreatePiuDTO';
 
-import IUsersRepository from '@modules/users/repositories/IUsersRepository';
-import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
-import IUpdateUserDTO from '@modules/users/dtos/IUpdateUserDTO';
-
-export default class UsersRepository implements IUsersRepository {
+export default class PiusRepository implements IPiusRepository {
   private ormRepository: Prisma.UsersDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>
 
   constructor() {
     this.ormRepository = prisma.users;
-  }
+  }/* como criar repositório de pius????? */
 
-  public async findByEmailWithRelations(email: string): Promise<Users | null> {
-    const user = await this.ormRepository.findFirst({
-      where: { email },
-    });
-
-    return user;
-  }
-
-  public async findByEmailPhoneOrCpf(email: string, phone: string, cpf: string): Promise<Users | null> {
-    const user = await this.ormRepository.findFirst({
-      where: { OR: [{ email }, { phone }, { cpf }] },
-    });
-
-    return user;
-  }
-
-  public async create(data: ICreateUserDTO): Promise<Users> {
+  public async create(data: ICreatePiuDTO): Promise<Piu> {
     const user = await this.ormRepository.create({ data });
 
     return user;

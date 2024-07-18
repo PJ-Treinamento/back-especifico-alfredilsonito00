@@ -1,39 +1,30 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import CreatePiuService from '@modules/pius/services/CreatePiuService';
+import UpdatePiuService from '@modules/pius/services/UpdatePiuService';
+import DeletePiuService from '@modules/pius/services/DeletePiuService';
+import ReadPiuService from '@modules/pius/services/ReadPiuService';
+import ReadAllPiusService from '@modules/pius/services/ReadAllPiusService';
 
-import CreateUserService from '@modules/users/services/CreateUserService';
-import ReadAllUsersService from '@modules/users/services/ReadAllUsersService';
-import ReadUserService from '@modules/users/services/ReadUserService';
-import DeleteUserService from '@modules/users/services/DeleteUserService';
-import UpdateUserService from '@modules/users/services/UpdateUserService';
-
-export default class UserController {
+export default class PiusController {
   public async create(req: Request, res: Response): Promise<Response> {
     const {
-      name,
-      email,
-      cpf,
-      phone,
-      password,
+      userid,
+      texto,
     } = req.body;
 
-    const createUser = container.resolve(CreateUserService);
+    const createPiu = container.resolve(CreatePiuService);
 
-    const user = await createUser.execute({
-      name,
-      email,
-      cpf,
-      phone,
-      password,
+    const piu = await createPiu.execute({
+      userid,
+      texto,
     });
 
-    user.password = '###';
-
-    return res.status(201).json(user);
+    return res.status(201).json(piu);
   }
 
   public async readAll(req:Request, res:Response): Promise<Response> {
-    const readUsers = container.resolve(ReadAllUsersService);
+    const readUsers = container.resolve(ReadAllPiusService);
 
     const users = await readUsers.execute();
 
@@ -43,7 +34,7 @@ export default class UserController {
   public async read(req:Request, res:Response) : Promise<Response> {
     const { id } = req.params;
 
-    const readUser = container.resolve(ReadUserService);
+    const readUser = container.resolve(ReadPiuService);
 
     const user = await readUser.execute(id);
 
@@ -53,7 +44,7 @@ export default class UserController {
   public async delete(req:Request, res:Response) : Promise<Response> {
     const { id } = req.params;
 
-    const deleteUser = container.resolve(DeleteUserService);
+    const deleteUser = container.resolve(DeletePiuService);
 
     const deletedUser = await deleteUser.execute(id);
 
@@ -70,7 +61,7 @@ export default class UserController {
       phone,
     } = req.body;
 
-    const updateUser = container.resolve(UpdateUserService);
+    const updateUser = container.resolve(UpdatePiuService);
 
     const updatedUser = await updateUser.execute({
       id, name, email, cpf, phone,
