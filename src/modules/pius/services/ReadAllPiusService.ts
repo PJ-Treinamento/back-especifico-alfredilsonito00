@@ -1,17 +1,16 @@
 import { inject, injectable } from 'tsyringe';
-import { Users } from '@prisma/client';
-import IUsersRepository from '../repositories/IPiusRepository';
+import IPiusRepository from '../repositories/IPiusRepository';
 
 @injectable()
-export default class ReadAllUsersService {
+export default class ReadAllPiusService {
   constructor(
-    @inject('UsersRepository')
-    private usersRepository: IUsersRepository,
+    @inject('PiusRepository')
+    private piusRepository: IPiusRepository,
   ) { }
 
-  public async execute(): Promise<Users[]> {
-    const users = await this.usersRepository.findAll();
+  public async execute(): Promise<Piu[]> {
+    const pius = await this.piusRepository.findAll();
 
-    return users;
+    return pius;
   }
 }

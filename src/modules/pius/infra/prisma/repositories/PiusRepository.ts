@@ -1,7 +1,8 @@
 import prisma from '@shared/infra/prisma/client';
-import { Prisma, Piu } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import IPiusRepository from '@modules/pius/repositories/IPiusRepository';
 import ICreatePiuDTO from '@modules/pius/dtos/ICreatePiuDTO';
+import IUpdatePiuDTO from '@modules/pius/dtos/IUpdatePiuDTO';
 
 export default class PiusRepository implements IPiusRepository {
   private ormRepository: Prisma.UsersDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>
@@ -16,25 +17,25 @@ export default class PiusRepository implements IPiusRepository {
     return user;
   }
 
-  public async findAll():Promise<Users[]> {
+  public async findAll():Promise<Piu[]> {
     const users = await this.ormRepository.findMany();
 
     return users;
   }
 
-  public async findById(id: string): Promise<Users | null> {
+  public async findById(id: string): Promise<Piu | null> {
     const user = await this.ormRepository.findFirst({ where: { id } });
 
     return user;
   }
 
-  public async delete(id: string): Promise<Users> {
+  public async delete(id: string): Promise<Piu> {
     const deleteUser = await this.ormRepository.delete({ where: { id } });
 
     return deleteUser;
   }
 
-  public async update(id:string, data:IUpdateUserDTO): Promise<Users> {
+  public async update(id:string, data:IUpdatePiuDTO): Promise<Piu> {
     const updateUser = await this.ormRepository.update({ where: { id }, data });
 
     return updateUser;

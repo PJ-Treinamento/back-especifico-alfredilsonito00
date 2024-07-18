@@ -1,20 +1,19 @@
 import { inject, injectable } from 'tsyringe';
-import { Users } from '@prisma/client';
 import AppError from '@shared/errors/AppError';
-import IUsersRepository from '../repositories/IPiusRepository';
+import IPiusRepository from '../repositories/IPiusRepository';
 
 @injectable()
-export default class ReadUserService {
+export default class ReadPiuService {
   constructor(
         @inject('PiusRepository')
-        private usersRepository : IUsersRepository,
+        private piusRepository : IPiusRepository,
   ) { }
 
-  public async execute(id:string): Promise<Users| null> {
-    const userExists = await this.usersRepository.findById(id);
+  public async execute(id:string): Promise<Piu| null> {
+    const piuExists = await this.piusRepository.findById(id);
 
-    if (!userExists) { throw new AppError('Não existe um usuário com esse id'); }
+    if (!piuExists) { throw new AppError('Não existe um piu com esse id'); }
 
-    return userExists;
+    return piuExists;
   }
 }

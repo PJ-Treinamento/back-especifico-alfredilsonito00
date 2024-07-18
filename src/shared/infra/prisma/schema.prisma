@@ -10,7 +10,8 @@ generator client {
 
 model Piu {
   id         String   @id @default(uuid())
-  userid     String
+  user       Users    @relation(fields: [userid], references: [id])
+  userid     String      
   texto      String
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
@@ -22,6 +23,7 @@ model Users {
   email      String
   cpf        String
   phone      String
+  pius       Piu[]
   password   String
   created_at DateTime @default(now())
   updated_at DateTime @default(now())

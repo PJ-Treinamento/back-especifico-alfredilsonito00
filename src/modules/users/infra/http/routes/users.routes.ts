@@ -27,7 +27,7 @@ usersRoutes.patch('/update/:id',
   body('name').isString().isLength({ min: 1 }).withMessage('digite um nome válido'), /* a mensagem não tá indo */
   body('email').isEmail().isLength({ min: 1 }).withMessage('digite um email válido'),
   body('phone').isMobilePhone('pt-BR').withMessage('digite um número válido'),
-  body('cpf').custom(isCpf),
+  body('cpf').optional().custom(isCpf),
   verifyValidationResult,
   usersController.update);
 

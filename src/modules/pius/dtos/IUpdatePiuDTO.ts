@@ -1,7 +1,5 @@
 interface IUpdatePiuDTO {
-    name: string;
-    email: string;
-    phone: string;
+    texto:string
 }
 
 export default IUpdatePiuDTO;

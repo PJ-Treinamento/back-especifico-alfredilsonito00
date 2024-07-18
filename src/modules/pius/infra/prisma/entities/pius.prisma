@@ -10,7 +10,5 @@ model Piu {
 model Users {
   id         String  @id @default(uuid())
   name       String  @unique
-  books      Books[]
-
-  @@map("author")
+  pius       Piu[]
 }

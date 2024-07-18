@@ -1,35 +1,30 @@
 import { injectable, inject } from 'tsyringe';
-import { Users } from '@prisma/client';
 import AppError from '@shared/errors/AppError';
-import IUsersRepository from '../repositories/IPiusRepository';
+import IPiusRepository from '../repositories/IPiusRepository';
 
 interface IRequest {
     id:string,
-    name:string,
-    email:string,
-    cpf:string,
-    phone:string
+    texto:string,
 }
 
 @injectable()
-export default class UpdateUserService {
+export default class UpdatePiuService {
   constructor(
-    @inject('UsersRepository')
-    private usersRepository: IUsersRepository,
+    @inject('PiusRepository')
+    private piusRepository: IPiusRepository,
   ) { }
 
   public async execute({
-    id, name, email, cpf, phone,
-  }: IRequest): Promise<Users> {
-    const userExists = this.usersRepository.findById(id);
+    id, texto,
+  }: IRequest): Promise<Piu> {
+    const piuExists = this.piusRepository.findById(id);
 
-    if (!userExists) { throw new AppError('Não existe usuário com este id'); }
+    if (!piuExists) { throw new AppError('Não existe um piu com este id'); }
 
-    const userAlreadyExists = await this.usersRepository.findByEmailPhoneOrCpf(email, phone, cpf);
+    if (texto.length === 0) { throw Error('Escreva algo para poder postar'); }
+    if (texto.length > 140) { throw Error('O texto é longo demais para ser publicado'); }
 
-    if (userAlreadyExists) throw new AppError('User with same name, phone or cpf already exists');
-
-    const updatedUser = this.usersRepository.update(id, { name, email: email.toLowerCase(), phone });
+    const updatedUser = this.piusRepository.update(id, { texto });
 
     return updatedUser;
   }

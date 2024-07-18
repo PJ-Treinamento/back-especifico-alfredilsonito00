@@ -24,52 +24,46 @@ export default class PiusController {
   }
 
   public async readAll(req:Request, res:Response): Promise<Response> {
-    const readUsers = container.resolve(ReadAllPiusService);
+    const readPius = container.resolve(ReadAllPiusService);
 
-    const users = await readUsers.execute();
+    const pius = await readPius.execute();
 
-    return res.status(201).json(users);
+    return res.status(201).json(pius);
   }
 
   public async read(req:Request, res:Response) : Promise<Response> {
     const { id } = req.params;
 
-    const readUser = container.resolve(ReadPiuService);
+    const readPiu = container.resolve(ReadPiuService);
 
-    const user = await readUser.execute(id);
+    const piu = await readPiu.execute(id);
 
-    return res.status(201).json(user);
+    return res.status(201).json(piu);
   }
 
   public async delete(req:Request, res:Response) : Promise<Response> {
     const { id } = req.params;
 
-    const deleteUser = container.resolve(DeletePiuService);
+    const deletePiu = container.resolve(DeletePiuService);
 
-    const deletedUser = await deleteUser.execute(id);
+    const deletedPiu = await deletePiu.execute(id);
 
-    return res.status(201).json(deletedUser);
+    return res.status(201).json(deletedPiu);
   }
 
   public async update(req:Request, res:Response) : Promise<Response> {
     const { id } = req.params;
 
     const {
-      name,
-      email,
-      cpf,
-      phone,
+      texto,
     } = req.body;
 
-    const updateUser = container.resolve(UpdatePiuService);
+    const updatePiu = container.resolve(UpdatePiuService);
 
-    const updatedUser = await updateUser.execute({
-      id, name, email, cpf, phone,
+    const updatedPiu = await updatePiu.execute({
+      id, texto,
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password: _password, ...userWithoutPassword } = updatedUser;
-
-    return res.status(201).json(userWithoutPassword);
+    return res.status(201).json(updatedPiu);
   }
 }

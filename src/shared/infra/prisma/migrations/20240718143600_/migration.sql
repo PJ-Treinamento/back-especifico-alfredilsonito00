@@ -1,0 +1,13 @@
+-- CreateTable
+CREATE TABLE "Piu" (
+    "id" TEXT NOT NULL,
+    "userid" TEXT NOT NULL,
+    "texto" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Piu_pkey" PRIMARY KEY ("id")
+);
+
+-- AddForeignKey
+ALTER TABLE "Piu" ADD CONSTRAINT "Piu_userid_fkey" FOREIGN KEY ("userid") REFERENCES "Users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
