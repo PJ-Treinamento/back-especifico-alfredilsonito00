@@ -1,10 +1,9 @@
 import { inject, injectable } from 'tsyringe';
 
-import { Piu } from '@prisma/client'; /* não sei como faz essa parte que mexe com o Prisma */
-
 import AppError from '@shared/errors/AppError';
 
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
+import { Piu } from '@prisma/client';
 import IPiusRepository from '../repositories/IPiusRepository';
 
 interface IRequest {
@@ -29,8 +28,8 @@ export default class CreatePiuService {
 
     if (!userExists) throw new AppError('User with this id does not exists');
 
-    if (texto.length === 0) { throw Error('Escreva algo para poder postar'); }
-    if (texto.length > 140) { throw Error('O texto é longo demais para ser publicado'); }
+    if (texto.length === 0) { throw new AppError('Escreva algo para poder postar'); }
+    if (texto.length > 140) { throw new AppError('O texto é longo demais para ser publicado'); }
 
     const piu = this.piusRepository.create({
       userid,

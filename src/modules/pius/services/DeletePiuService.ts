@@ -1,6 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
+import { Piu } from '@prisma/client';
 import IPiusRepository from '../repositories/IPiusRepository';
 
 @injectable()

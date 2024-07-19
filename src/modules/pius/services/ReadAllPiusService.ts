@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe';
+import { Piu } from '@prisma/client';
 import IPiusRepository from '../repositories/IPiusRepository';
 
 @injectable()

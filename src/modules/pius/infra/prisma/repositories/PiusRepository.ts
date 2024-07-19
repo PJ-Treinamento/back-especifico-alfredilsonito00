@@ -1,17 +1,17 @@
 import prisma from '@shared/infra/prisma/client';
-import { Prisma } from '@prisma/client';
+import { Piu, Prisma } from '@prisma/client';
 import IPiusRepository from '@modules/pius/repositories/IPiusRepository';
 import ICreatePiuDTO from '@modules/pius/dtos/ICreatePiuDTO';
 import IUpdatePiuDTO from '@modules/pius/dtos/IUpdatePiuDTO';
 
 export default class PiusRepository implements IPiusRepository {
-  private ormRepository: Prisma.UsersDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>
+  private ormRepository: Prisma.PiuDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>
 
   constructor() {
-    this.ormRepository = prisma.users;
-  }/* como criar repositório de pius????? */
+    this.ormRepository = prisma.piu;
+  }
 
-  public async create(data: ICreatePiuDTO): Promise<Piu> {
+  public async create(data: ICreatePiuDTO): Promise<Piu> { /* arrumar */
     const user = await this.ormRepository.create({ data });
 
     return user;
