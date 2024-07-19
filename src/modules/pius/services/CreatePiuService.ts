@@ -17,7 +17,7 @@ export default class CreatePiuService {
     @inject('PiusRepository')
     private piusRepository: IPiusRepository,
 
-    @inject('UsersRepoitory')
+    @inject('UsersRepository')
     private usersRepository: IUsersRepository,
   ) { }
 

@@ -25,7 +25,7 @@ export default class UpdatePiuService {
     if (texto.length === 0) { throw Error('Escreva algo para poder postar'); }
     if (texto.length > 140) { throw Error('O texto é longo demais para ser publicado'); }
 
-    const updatedUser = this.piusRepository.update(id, { texto });
+    const updatedUser = this.piusRepository.update(id, { texto, updated_at: new Date() });
 
     return updatedUser;
   }

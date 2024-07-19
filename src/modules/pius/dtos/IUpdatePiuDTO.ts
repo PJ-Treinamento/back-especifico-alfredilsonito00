@@ -1,5 +1,6 @@
 interface IUpdatePiuDTO {
-    texto:string
+    texto:string;
+    updated_at:Date;
 }
 
 export default IUpdatePiuDTO;

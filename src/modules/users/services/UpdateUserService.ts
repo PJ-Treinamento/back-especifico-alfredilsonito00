@@ -27,9 +27,11 @@ export default class UpdateUserService {
 
     const userAlreadyExists = await this.usersRepository.findByEmailPhoneOrCpf(email, phone, cpf);
 
-    if (userAlreadyExists) throw new AppError('User with same name, phone or cpf already exists');
+    if (userAlreadyExists && userAlreadyExists.id !== id) throw new AppError('User with same name, phone or cpf already exists');
 
-    const updatedUser = this.usersRepository.update(id, { name, email: email.toLowerCase(), phone });
+    const updatedUser = this.usersRepository.update(id, {
+      name, email: email.toLowerCase(), phone, updated_at: new Date(),
+    });
 
     return updatedUser;
   }

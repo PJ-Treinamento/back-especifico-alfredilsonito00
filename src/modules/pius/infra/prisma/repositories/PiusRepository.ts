@@ -11,7 +11,7 @@ export default class PiusRepository implements IPiusRepository {
     this.ormRepository = prisma.piu;
   }
 
-  public async create(data: ICreatePiuDTO): Promise<Piu> { /* arrumar */
+  public async create(data: ICreatePiuDTO): Promise<Piu> {
     const user = await this.ormRepository.create({ data });
 
     return user;
