@@ -9,6 +9,7 @@ interface IPiusRepository {
   findById(id:string): Promise<Piu| null>;
   delete(id:string): Promise<Piu>;
   update(id:string, data:IUpdatePiuDTO): Promise<Piu>;
+  deleteAll(userid:string): Promise<null>;
 }
 
 export default IPiusRepository;

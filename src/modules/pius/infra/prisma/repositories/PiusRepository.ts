@@ -40,4 +40,9 @@ export default class PiusRepository implements IPiusRepository {
 
     return updateUser;
   }
+
+  public async deleteAll(userid:string): Promise<null> {
+    await this.ormRepository.deleteMany({ where: { userid } });
+    return null;
+  }
 }
