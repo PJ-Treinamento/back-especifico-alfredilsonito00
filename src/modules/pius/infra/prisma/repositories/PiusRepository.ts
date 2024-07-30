@@ -12,33 +12,33 @@ export default class PiusRepository implements IPiusRepository {
   }
 
   public async create(data: ICreatePiuDTO): Promise<Piu> {
-    const user = await this.ormRepository.create({ data });
+    const piu = await this.ormRepository.create({ data });
 
-    return user;
+    return piu;
   }
 
   public async findAll():Promise<Piu[]> {
-    const users = await this.ormRepository.findMany();
+    const pius = await this.ormRepository.findMany();
 
-    return users;
+    return pius;
   }
 
   public async findById(id: string): Promise<Piu | null> {
-    const user = await this.ormRepository.findFirst({ where: { id } });
+    const piu = await this.ormRepository.findFirst({ where: { id } });
 
-    return user;
+    return piu;
   }
 
   public async delete(id: string): Promise<Piu> {
-    const deleteUser = await this.ormRepository.delete({ where: { id } });
+    const deletePiu = await this.ormRepository.delete({ where: { id } });
 
-    return deleteUser;
+    return deletePiu;
   }
 
   public async update(id:string, data:IUpdatePiuDTO): Promise<Piu> {
-    const updateUser = await this.ormRepository.update({ where: { id }, data });
+    const updatePiu = await this.ormRepository.update({ where: { id }, data });
 
-    return updateUser;
+    return updatePiu;
   }
 
   public async deleteAll(userid:string): Promise<null> {

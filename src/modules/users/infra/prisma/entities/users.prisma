@@ -4,7 +4,14 @@ model Users {
   email      String
   cpf        String
   phone      String
+  pius       Piu[]
   password   String
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
+}
+
+model Piu {
+  id         String   @unique
+  userid     String   
+  user       Users    @relation(fields: [userid], references: [id])
 }

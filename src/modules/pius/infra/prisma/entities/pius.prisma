@@ -9,6 +9,5 @@ model Piu {
 
 model Users {
   id         String  @id @default(uuid())
-  name       String  @unique
-  pius       Piu[]
+  pius       Piu[]   
 }

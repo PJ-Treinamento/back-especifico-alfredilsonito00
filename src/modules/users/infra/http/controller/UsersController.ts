@@ -6,6 +6,8 @@ import ReadAllUsersService from '@modules/users/services/ReadAllUsersService';
 import ReadUserService from '@modules/users/services/ReadUserService';
 import DeleteUserService from '@modules/users/services/DeleteUserService';
 import UpdateUserService from '@modules/users/services/UpdateUserService';
+import isCpf from '@shared/utils/isCpf';
+import { body, param } from 'express-validator';
 
 export default class UserController {
   public async create(req: Request, res: Response): Promise<Response> {
@@ -81,4 +83,19 @@ export default class UserController {
 
     return res.status(201).json(userWithoutPassword);
   }
+
+  public createMiddleware = [
+    body('name').isString().isLength({ min: 1 }).withMessage('digite um nome válido'),
+    body('email').isEmail().isLength({ min: 1 }).withMessage('digite um email válido'),
+    body('phone').isMobilePhone('pt-BR').withMessage('digite um número válido'),
+    body('cpf').custom(isCpf),
+    body('password').isString().isLength({ min: 1 }).withMessage('digite uma senha válida')];
+
+  public updateMiddleware = [
+    param('id').isUUID(),
+    body('name').isString().isLength({ min: 1 }).withMessage('digite um nome válido'),
+    body('email').isEmail().isLength({ min: 1 }).withMessage('digite um email válido'),
+    body('phone').isMobilePhone('pt-BR').withMessage('digite um número válido'),
+    body('cpf').optional().custom(isCpf),
+  ]
 }

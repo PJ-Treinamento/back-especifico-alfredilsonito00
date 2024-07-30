@@ -9,9 +9,9 @@ generator client {
 }
 
 model Piu {
-  id         String   @id @default(uuid())
+  id         String   @id @unique @default(uuid())
+  userid     String
   user       Users    @relation(fields: [userid], references: [id])
-  userid     String      
   texto      String
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
