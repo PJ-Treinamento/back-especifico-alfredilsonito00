@@ -9,7 +9,7 @@ export default class ReadAllUsersService {
     private usersRepository: IUsersRepository,
   ) { }
 
-  public async execute(): Promise<Users[]> {
+  public async execute(): Promise<Partial<Users>[]> {
     const users = await this.usersRepository.findAll();
 
     return users;

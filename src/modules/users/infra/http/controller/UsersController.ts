@@ -68,14 +68,13 @@ export default class UserController {
     const {
       name,
       email,
-      cpf,
       phone,
     } = req.body;
 
     const updateUser = container.resolve(UpdateUserService);
 
     const updatedUser = await updateUser.execute({
-      id, name, email, cpf, phone,
+      id, name, email, phone,
     });
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

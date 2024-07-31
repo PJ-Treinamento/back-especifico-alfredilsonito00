@@ -10,11 +10,14 @@ export default class ReadUserService {
         private usersRepository : IUsersRepository,
   ) { }
 
-  public async execute(id:string): Promise<Users| null> {
+  public async execute(id:string): Promise<Partial<Users>| null> {
     const userExists = await this.usersRepository.findById(id);
 
     if (!userExists) { throw new AppError('Não existe um usuário com esse id'); }
 
-    return userExists;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...usersWithoutPassword } = userExists;
+
+    return usersWithoutPassword;
   }
 }

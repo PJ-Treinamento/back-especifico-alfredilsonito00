@@ -15,7 +15,7 @@ export default class DeleteUserService {
         private piusRepository: IPiusRepository,
   ) {}
 
-  public async execute(id:string) : Promise<Users| null> {
+  public async execute(id:string) : Promise<Partial<Users>| null> {
     const userExists = await this.usersRepository.findById(id);
 
     if (!userExists) { throw new AppError('User with this id does not exist'); }
@@ -23,7 +23,9 @@ export default class DeleteUserService {
     this.piusRepository.deleteAll(id);
 
     const deletedUser = await this.usersRepository.delete(id);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...usersWithoutPassword } = deletedUser;
 
-    return deletedUser;
+    return usersWithoutPassword;
   }
 }

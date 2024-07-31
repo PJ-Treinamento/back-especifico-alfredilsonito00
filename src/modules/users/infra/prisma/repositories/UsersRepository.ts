@@ -20,7 +20,7 @@ export default class UsersRepository implements IUsersRepository {
     return user;
   }
 
-  public async findByEmailPhoneOrCpf(email: string, phone: string, cpf: string): Promise<Users | null> {
+  public async findByEmailPhoneOrCpf(email: string, phone: string, cpf?: string): Promise<Users | null> {
     const user = await this.ormRepository.findFirst({
       where: { OR: [{ email }, { phone }, { cpf }] },
     });
@@ -34,9 +34,18 @@ export default class UsersRepository implements IUsersRepository {
     return user;
   }
 
-  public async findAll():Promise<Users[]> {
-    const users = await this.ormRepository.findMany();
-
+  public async findAll(): Promise<Partial<Users>[]> {
+    const users = await prisma.users.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        cpf: true,
+        phone: true,
+        created_at: true,
+        updated_at: true,
+      },
+    });
     return users;
   }
 

@@ -35,7 +35,7 @@ export default class CreateUserService {
   }: IRequest): Promise<Users> {
     const userAlreadyExists = await this.usersRepository.findByEmailPhoneOrCpf(email, phone, cpf);
 
-    if (userAlreadyExists) throw new AppError('User with same name, phone or cpf already exists');
+    if (userAlreadyExists) throw new AppError('User with same email, phone or cpf already exists');
 
     const hashedPassword = await this.hashProvider.generateHash(password);
 
@@ -64,9 +64,9 @@ export default class CreateUserService {
         },
       });
 
-      console.log('Email sent successfully');
+      console.log('Email enviado com sucesso');
     } catch (error) {
-      console.error('Error sending email:', error);
+      console.error('Erro no envio', error);
       throw new AppError('Error sending email');
     }
 

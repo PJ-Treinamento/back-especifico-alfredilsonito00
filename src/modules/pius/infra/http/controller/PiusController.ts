@@ -69,9 +69,8 @@ export default class PiusController {
   }
 
   public createMiddleware = [
-    param('id').isUUID(),
     body('texto').isString().isLength({ min: 1, max: 140 }),
-    body('userid').isUUID];
+    body('userid').isUUID()];
 
   public updateMiddleware = [
     param('id').isUUID(),
