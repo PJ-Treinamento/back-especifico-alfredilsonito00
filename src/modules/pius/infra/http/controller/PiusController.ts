@@ -5,6 +5,7 @@ import UpdatePiuService from '@modules/pius/services/UpdatePiuService';
 import DeletePiuService from '@modules/pius/services/DeletePiuService';
 import ReadPiuService from '@modules/pius/services/ReadPiuService';
 import ReadAllPiusService from '@modules/pius/services/ReadAllPiusService';
+import { body, param } from 'express-validator';
 
 export default class PiusController {
   public async create(req: Request, res: Response): Promise<Response> {
@@ -66,4 +67,13 @@ export default class PiusController {
 
     return res.status(201).json(updatedPiu);
   }
+
+  public createMiddleware = [
+    param('id').isUUID(),
+    body('texto').isString().isLength({ min: 1, max: 140 }),
+    body('userid').isUUID];
+
+  public updateMiddleware = [
+    param('id').isUUID(),
+    body('texto').isString().isLength({ min: 1, max: 140 })];
 }

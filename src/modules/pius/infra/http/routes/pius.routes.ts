@@ -9,15 +9,12 @@ const piusRoutes = Router();
 
 const piusController = new PiusController();
 
-piusRoutes.post('/create', ensureAutenticated, piusController.create);
+piusRoutes.post('/create', ensureAutenticated, piusController.createMiddleware, verifyValidationResult, piusController.create);
 
 piusRoutes.get('/readAll', piusController.readAll);
 piusRoutes.get('/read/:id', param('id').isUUID(), piusController.read);
 piusRoutes.delete('/delete/:id', ensureAutenticated, param('id').isUUID(), piusController.delete);
 
-piusRoutes.patch('/update/:id', ensureAutenticated,
-  param('id').isUUID(),
-  verifyValidationResult,
-  piusController.update);
+piusRoutes.patch('/update/:id', ensureAutenticated, piusController.updateMiddleware, verifyValidationResult, piusController.update);
 
 export default piusRoutes;

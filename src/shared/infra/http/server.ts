@@ -10,6 +10,7 @@ import '@shared/container';
 
 import AppError from '@shared/errors/AppError';
 
+import path from 'path';
 import routes from './routes';
 
 const app = express();
@@ -39,6 +40,8 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
     message: 'Internal Server Error',
   });
 });
+
+app.use('/docs', express.static(path.join(__dirname, '..', '..', '..', '..', 'docs')));
 
 app.listen(process.env.PORT || 3333, () => {
   console.log(`Server started on port ${process.env.PORT || 3333}`);
