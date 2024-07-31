@@ -1,6 +1,6 @@
 model Users {
-  id         String   @id @default(uuid())
-  name       String   @unique
+  id         String   @id @default(uuid()) @unique
+  name       String   
   email      String
   cpf        String
   phone      String

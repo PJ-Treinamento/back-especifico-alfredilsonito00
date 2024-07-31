@@ -18,8 +18,8 @@ model Piu {
 }
 
 model Users {
-  id         String   @id @default(uuid())
-  name       String   @unique
+  id         String   @id @unique @default(uuid())
+  name       String
   email      String
   cpf        String
   phone      String

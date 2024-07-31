@@ -20,7 +20,7 @@ export default class MailjetMailProvider implements IMailProvider {
       mailConfig.mailjet_secret_key,
     );
 
-    this.client = mailjet; // esse vai ser no nome do nosso Mail_Driver
+    this.client = mailjet;
   }
 
   public async sendMail({

@@ -49,17 +49,26 @@ export default class CreateUserService {
 
     const templateDataFile = path.resolve(__dirname, '..', 'views', 'create_account.hbs');
 
-    await this.mailProvider.sendMail({
-      to: {
-        name,
-        email,
-      },
-      subject: 'Criação de conta',
-      templateData: {
-        file: templateDataFile,
-        variables: { name },
-      },
-    });
+    console.log('Template Path:', templateDataFile);
+
+    try {
+      await this.mailProvider.sendMail({
+        to: {
+          name,
+          email,
+        },
+        subject: 'Criação de conta',
+        templateData: {
+          file: templateDataFile,
+          variables: { name },
+        },
+      });
+
+      console.log('Email sent successfully');
+    } catch (error) {
+      console.error('Error sending email:', error);
+      throw new AppError('Error sending email');
+    }
 
     return user;
   }

@@ -6,7 +6,7 @@ import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
 import IUpdateUserDTO from '@modules/users/dtos/IUpdateUserDTO';
 
 export default class UsersRepository implements IUsersRepository {
-  private ormRepository: Prisma.UsersDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>
+  private ormRepository: Prisma.UsersDelegate<any> /* bugou então tive que mudar */
 
   constructor() {
     this.ormRepository = prisma.users;

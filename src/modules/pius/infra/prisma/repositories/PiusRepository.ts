@@ -5,7 +5,7 @@ import ICreatePiuDTO from '@modules/pius/dtos/ICreatePiuDTO';
 import IUpdatePiuDTO from '@modules/pius/dtos/IUpdatePiuDTO';
 
 export default class PiusRepository implements IPiusRepository {
-  private ormRepository: Prisma.PiuDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>
+  private ormRepository: Prisma.PiuDelegate<any> /* bugou então tive que mudar */
 
   constructor() {
     this.ormRepository = prisma.piu;
